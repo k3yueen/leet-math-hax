@@ -1,0 +1,53 @@
+public class Solution {
+    public int closestMeetingNode(int[] edges, int node1, int node2) {
+        int n = edges.length;
+
+        int[] dist1 = getDistances(edges, node1, n);
+        int[] dist2 = getDistances(edges, node2, n);
+
+        int minDistance = Integer.MAX_VALUE;
+        int result = -1;
+
+        for (int i = 0; i < n; i++) {
+            if (dist1[i] != -1 && dist2[i] != -1) {
+                int maxDist = dist1[i] > dist2[i] ? dist1[i] : dist2[i];
+                if (maxDist < minDistance) {
+                    minDistance = maxDist;
+                    result = i;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private int[] getDistances(int[] edges, int start, int n) {
+        int[] dist = new int[n];
+
+        // Initialize all distances to -1 manually (since we're not using Arrays.fill)
+        for (int i = 0; i < n; i++) {
+            dist[i] = -1;
+        }
+
+        int d = 0;
+        while (start != -1 && dist[start] == -1) {
+            dist[start] = d;
+            d++;
+            start = edges[start];
+        }
+
+        return dist;
+    }
+
+    // Main method to test
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] edges = {2, 2, 3, -1};
+        int node1 = 0;
+        int node2 = 1;
+
+        int result = sol.closestMeetingNode(edges, node1, node2);
+        System.out.println("Closest Meeting Node: " + result);  // Output should be 2
+    }
+}

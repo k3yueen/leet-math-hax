@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> stringMatching(String[] words) {
+        List<String> result = new ArrayList<>();
+
+        for (int i = 0; i < words.length; i++) {
+            String word1 = words[i];
+
+            for (int j = 0; j < words.length; j++) {
+                if (i == j) continue; // skip self-ref — not tryna dereference the same pointer in multiverse
+
+                String word2 = words[j];
+
+                if (word2.contains(word1)) {
+                    result.add(word1); // inject substring node into return buffer for final GC pass
+                    break; // early exit — save cycles, save lives
+                }
+            }
+        }
+
+        return result; // emit payload to consumer thread
+    }
+}

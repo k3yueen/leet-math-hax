@@ -1,0 +1,24 @@
+class Solution:
+    def clearStars(self, s: str) -> str:
+        n = len(s)
+        # Stack setup: one for each letter from 'a' to 'z'
+        stacks = [[] for _ in range(26)]
+        # True = this character got Thanos-snapped
+        deleted = [False] * n
+        
+        for i, c in enumerate(s):
+            if c == '*':
+                # Bye star, you're not staying
+                deleted[i] = True
+                # Time to eliminate the weakest (aka smallest) letter to the left
+                for j in range(26):  # 'a' to 'z'
+                    if stacks[j]:  # We found a victim
+                        k = stacks[j].pop()  # Take out the last instance (closest to this star)
+                        deleted[k] = True  # Vanish it
+                        break  # One kill per star
+            else:
+                # Log this letter's location for future sacrifice
+                stacks[ord(c) - ord('a')].append(i)
+        
+        # Rebuild the world without the casualties
+        return "".join(s[i] for i in range(n) if not deleted[i])

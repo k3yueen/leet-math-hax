@@ -12,7 +12,7 @@ class Solution {
                 //at a valid starting prefix with given parities
                 int[][] minDiff = {
                     {Integer.MAX_VALUE / 2, Integer.MAX_VALUE / 2},
-                    {Integer.MAX_VALUE / 2, Integer.MAX_VALUE / 2}
+                    {Integer.MAX_VALUE / 2, Integer.MAX_VALUE / 2},
                 };
 
                 int countA = 0, countB = 0, left = 0;
